@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warung Ikan Bakar Jimbaran Pan Juwet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold:      #FAD032;
+      --gold-dark: #E8B800;
+      --gold-deep: #C99A00;
+      --amber:     #fc9230;
+      --amber-dark:#e07a10;
+      --cream:     #FFF8E7;
+      --warm-bg:   #1A0F00;
+      --dark-brown:#0F0800;
+      --mid-brown: #2C1800;
+      --light-brown:#3D2200;
+      --fog:       #F5E6C8;
+      --white:     #FFFFFF;
+      --text-muted: rgba(245,230,200,0.6);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark-brown);
+      color: var(--fog);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: linear-gradient(to bottom, rgba(15,8,0,0.96), transparent);
+      backdrop-filter: blur(3px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--fog);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* HERO */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: radial-gradient(ellipse 90% 70% at 50% 100%, #3D2200 0%, var(--dark-brown) 65%);
+    }
+    .wave-bg {
+      position: absolute;
+      bottom: -5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(250,208,50,0.18) 0%, rgba(252,146,48,0.08) 45%, transparent 70%);
+      animation: wavePulse 4s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes wavePulse {
+      from { transform: translateX(-50%) scale(1);    opacity: 0.6; }
+      to   { transform: translateX(-50%) scale(1.08); opacity: 1;   }
+    }
+    .hero-content { position: relative; z-index: 2; padding: 0 1.5rem; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(250,208,50,0.35);
+      padding: 0.35rem 1rem;
+      border-radius: 2rem;
+      margin-bottom: 1.8rem;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      animation: fadeUp 1s 0.35s ease both;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin: 1.2rem 0 2.5rem;
+      animation: fadeUp 1s 0.5s ease both;
+    }
+    .hero-ctas {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 1s 0.65s ease both;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      border-radius: 3rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: #1A0F00;
+      font-weight: 700;
+      box-shadow: 0 0 28px rgba(250,208,50,0.4);
+    }
+    .btn-primary:hover {
+      background: var(--gold-dark);
+      box-shadow: 0 0 40px rgba(250,208,50,0.6);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--fog);
+      border: 1px solid rgba(245,230,200,0.3);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    section { padding: 6rem 4rem; }
+    .section-label { font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); color: var(--white); line-height: 1.15; }
+
+    /* ABOUT */
+    #about {
+      background: var(--mid-brown);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-visual { display: flex; justify-content: center; align-items: center; }
+    .about-text p {
+      font-weight: 300; line-height: 1.8;
+      color: var(--text-muted); margin-top: 1.5rem; font-size: 1rem;
+    }
+    .info-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
+    .info-card {
+      background: rgba(250,208,50,0.05);
+      border: 1px solid rgba(250,208,50,0.15);
+      border-radius: 1rem;
+      padding: 1.2rem 1.4rem;
+      transition: border-color 0.25s;
+    }
+    .info-card:hover { border-color: rgba(250,208,50,0.45); }
+    .info-card-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .info-card-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+    .info-card-value { font-size: 0.92rem; color: var(--fog); margin-top: 0.25rem; }
+
+    /* MENU */
+    #menu { background: var(--dark-brown); text-align: center; }
+    #menu .section-label { display: block; }
+    #menu .section-title { margin-bottom: 1rem; }
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 2.8rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 0.5rem 1.4rem;
+      border-radius: 2rem;
+      border: 1px solid rgba(250,208,50,0.25);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: var(--gold);
+      color: #1A0F00;
+      border-color: var(--gold);
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.4rem;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    .menu-card {
+      background: var(--mid-brown);
+      border: 1px solid rgba(250,208,50,0.1);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      text-align: left;
+      transition: all 0.3s;
+      position: relative;
+      display: none;
+    }
+    .menu-card.visible { display: block; }
+    .menu-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--amber));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s;
+    }
+    .menu-card:hover::after { transform: scaleX(1); }
+    .menu-card:hover { transform: translateY(-4px); border-color: rgba(250,208,50,0.3); }
+    .menu-card.featured { border-color: rgba(250,208,50,0.35); }
+
+    /* Menu image area */
+    .menu-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      background: var(--light-brown);
+      position: relative;
+      overflow: hidden;
+    }
+    .menu-img-placeholder {
+      width: 100%;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      background: linear-gradient(135deg, #3D2200, #2C1800);
+    }
+
+    .menu-card-body { padding: 1.2rem 1.4rem 1.5rem; }
+    .price-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: #1A0F00;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.25rem 0.8rem;
+      border-radius: 2rem;
+      margin-bottom: 0.7rem;
+    }
+    .price-badge.featured-badge {
+      background: linear-gradient(90deg, var(--gold), var(--amber));
+    }
+    .menu-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .menu-items { list-style: none; }
+    .menu-items li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      padding: 0.18rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .menu-items li::before {
+      content: '';
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    /* EXPERIENCE */
+    #experience { background: var(--mid-brown); }
+    .exp-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .exp-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .exp-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+    .exp-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; color: rgba(250,208,50,0.2);
+      line-height: 1; min-width: 3rem;
+    }
+    .exp-item-title { font-size: 1rem; font-weight: 500; color: var(--white); margin-bottom: 0.35rem; }
+    .exp-item-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
+    .ocean-deco { display: flex; align-items: center; justify-content: center; }
+
+    /* LOCATION */
+    #location { background: var(--dark-brown); text-align: center; }
+    #location .section-title { margin-bottom: 0.5rem; }
+    .location-jargon {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--gold);
+      margin-bottom: 0.7rem;
+    }
+    .section-sub { font-size: 0.95rem; color: var(--text-muted); font-weight: 300; margin-bottom: 3rem; }
+    .location-card {
+      max-width: 700px; margin: 0 auto;
+      background: var(--mid-brown);
+      border: 1px solid rgba(250,208,50,0.12);
+      border-radius: 1.5rem;
+      padding: 2.5rem 3rem;
+      text-align: left;
+    }
+    .loc-row {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(250,208,50,0.08);
+    }
+    .loc-row:last-child { border-bottom: none; }
+    .loc-icon { font-size: 1.2rem; min-width: 1.8rem; padding-top: 0.1rem; }
+    .loc-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem; }
+    .loc-value { font-size: 0.95rem; color: var(--fog); font-weight: 300; line-height: 1.6; }
+    .loc-value a { color: var(--gold); text-decoration: none; }
+    .loc-value a:hover { text-decoration: underline; }
+    .open-badge {
+      display: inline-block;
+      background: rgba(34,197,94,0.15); color: #4ADE80;
+      border: 1px solid rgba(74,222,128,0.3);
+      padding: 0.2rem 0.7rem; border-radius: 2rem;
+      font-size: 0.78rem; font-weight: 500; margin-right: 0.5rem;
+    }
+
+    /* SOCIAL MEDIA */
+    #social { background: var(--mid-brown); text-align: center; padding: 5rem 4rem; }
+    #social .section-title { margin-bottom: 0.8rem; }
+    #social .section-sub { margin-bottom: 2.5rem; }
+    .social-cards {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .social-card {
+      flex: 1;
+      min-width: 240px;
+      max-width: 300px;
+      border-radius: 1.3rem;
+      padding: 2rem 1.8rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .social-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .social-card:hover { transform: translateY(-5px); }
+    .social-card:hover::before { opacity: 1; }
+    .social-card.instagram {
+      background: linear-gradient(135deg, rgba(131,58,180,0.12), rgba(253,29,29,0.1), rgba(252,176,69,0.12));
+      border: 1px solid rgba(131,58,180,0.25);
+    }
+    .social-card.instagram::before {
+      background: linear-gradient(135deg, rgba(131,58,180,0.08), rgba(253,29,29,0.06), rgba(252,176,69,0.08));
+    }
+    .social-card.instagram:hover { border-color: rgba(131,58,180,0.5); box-shadow: 0 8px 32px rgba(131,58,180,0.2); }
+    .social-card.tiktok {
+      background: rgba(250,208,50,0.06);
+      border: 1px solid rgba(250,208,50,0.2);
+    }
+    .social-card.tiktok:hover { border-color: rgba(250,208,50,0.5); box-shadow: 0 8px 32px rgba(250,208,50,0.15); }
+    .social-icon { font-size: 2.2rem; line-height: 1; }
+    .social-platform {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+    .social-handle {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--white);
+      word-break: break-all;
+    }
+    .social-follow {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* SOCIAL MEDIA */
+    #social {
+      background: var(--mid-brown);
+      text-align: center;
+    }
+    #social .section-title { margin-bottom: 0.6rem; }
+    .social-cards {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    .social-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 2rem 2.5rem;
+      border-radius: 1.5rem;
+      text-decoration: none;
+      width: 220px;
+      transition: all 0.3s;
+      border: 1px solid rgba(250,208,50,0.12);
+      background: var(--dark-brown);
+    }
+    .social-card:hover { transform: translateY(-5px); }
+    .social-card.instagram:hover { border-color: #e6683c; box-shadow: 0 10px 35px rgba(230,104,60,0.2); }
+    .social-card.tiktok:hover    { border-color: var(--gold); box-shadow: 0 10px 35px rgba(250,208,50,0.2); }
+    .social-icon { width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+      border-radius: 1rem; background: rgba(250,208,50,0.06); }
+    .social-platform { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .social-handle { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); }
+    .social-follow { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; }
+
+    /* FOOTER */
+    footer {
+      background: #030100;
+      padding: 2.5rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      border-top: 1px solid rgba(250,208,50,0.08);
+    }
+    .footer-brand { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.05rem; }
+    .footer-socials { display: flex; gap: 1rem; align-items: center; font-size: 0.8rem; }
+    .footer-socials a { color: var(--gold); text-decoration: none; opacity: 0.8; transition: opacity 0.2s; }
+    .footer-socials a:hover { opacity: 1; }
+    .footer-copy { font-size: 0.8rem; color: rgba(245,230,200,0.3); }
+    .footer-socials { display: flex; gap: 1rem; align-items: center; }
+    .footer-socials a {
+      font-size: 0.78rem;
+      color: rgba(245,230,200,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-socials a:hover { color: var(--gold); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      #about { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-visual { display: none; }
+      .info-cards { grid-template-columns: 1fr; }
+      .exp-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .ocean-deco { display: none; }
+      .location-card { padding: 1.5rem; }
+      footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Pan Juwet</div>
+  <ul class="nav-links">
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#experience">Keunggulan</a></li>
+    <li><a href="#location">Lokasi</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wave-bg"></div>
+  <div class="hero-content">
+    <span class="hero-label">🐟 Ungasan, Bali - Tempat Sederhana Rasa Luar Biasa</span>
+    <h1 class="hero-title">
+      Warung Ikan Bakar<br><em>Jimbaran Pan Juwet</em>
+    </h1>
+    <p class="hero-sub">Seafood Jimbaran yang lengkap dan nikmat mulai dari Rp 20.000.</p>
+    <div class="hero-ctas">
+      <a href="#menu" class="btn btn-primary">Lihat Menu &amp; Paket</a>
+      <a href="#location" class="btn btn-outline">Temukan Kami</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual">
+    <svg viewBox="0 0 320 320" width="290" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="160" cy="160" r="130" fill="rgba(250,208,50,0.06)"/>
+      <circle cx="160" cy="160" r="90"  fill="rgba(252,146,48,0.05)"/>
+      <ellipse cx="155" cy="160" rx="110" ry="55" fill="#2C1800"/>
+      <ellipse cx="148" cy="162" rx="90"  ry="40" fill="#3D2200"/>
+      <path d="M265 160 L310 120 L310 200 Z" fill="#2C1800"/>
+      <path d="M120 105 Q140 75 175 108" stroke="#FAD032" stroke-width="3" fill="rgba(250,208,50,0.2)" stroke-linecap="round"/>
+      <path d="M130 215 Q148 240 170 212" stroke="#FAD032" stroke-width="3" fill="rgba(250,208,50,0.2)" stroke-linecap="round"/>
+      <circle cx="72" cy="152" r="14" fill="#3D2200"/>
+      <circle cx="72" cy="152" r="9"  fill="#0F0800"/>
+      <circle cx="68" cy="148" r="3.5" fill="white"/>
+      <path d="M48 158 Q55 168 48 172" stroke="#FAD032" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <g stroke="#fc9230" stroke-width="1.5" opacity="0.4" fill="none">
+        <path d="M120 140 Q135 128 150 140"/>
+        <path d="M148 140 Q163 128 178 140"/>
+        <path d="M176 140 Q191 128 206 140"/>
+        <path d="M108 160 Q123 148 138 160"/>
+        <path d="M136 160 Q151 148 166 160"/>
+        <path d="M164 160 Q179 148 194 160"/>
+        <path d="M120 178 Q135 166 150 178"/>
+        <path d="M148 178 Q163 166 178 178"/>
+      </g>
+      <g stroke="#FAD032" stroke-width="3" opacity="0.5" stroke-linecap="round">
+        <line x1="130" y1="125" x2="138" y2="195"/>
+        <line x1="158" y1="118" x2="165" y2="200"/>
+        <line x1="186" y1="125" x2="192" y2="193"/>
+      </g>
+      <circle cx="35" cy="130" r="6"   stroke="#FAD032" stroke-width="1.5" opacity="0.4"/>
+      <circle cx="22" cy="108" r="4"   stroke="#FAD032" stroke-width="1.5" opacity="0.3"/>
+      <circle cx="42" cy="92"  r="3"   stroke="#FAD032" stroke-width="1.5" opacity="0.25"/>
+    </svg>
+  </div>
+
+  <div class="about-text">
+    <div class="section-label">Tentang Kami</div>
+    <h2 class="section-title">Rasakan Seafood Khas Jimbaran di Setiap Gigitan</h2>
+    <p>Warung Ikan Bakar Jimbaran Pan Juwet menyajikan pengalaman kuliner seafood yang autentik. Setiap hidangan dimasak segar di atas bara api dengan bumbu rempah tradisional yang kaya cita rasa.</p>
+    <p>Berlokasi dekat kawasan Uluwatu yang ikonik, kami hadir untuk memberikan kenangan makan malam tak terlupakan dengan harga bersahabat untuk semua kalangan.</p>
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="info-card-icon">⏰</div>
+        <div class="info-card-label">Jam Buka</div>
+        <div class="info-card-value">Setiap Hari · 15.00 – 23.00 WITA</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">💰</div>
+        <div class="info-card-label">Harga Mulai</div>
+        <div class="info-card-value">Rp 20.000</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">📍</div>
+        <div class="info-card-label">Area</div>
+        <div class="info-card-value">Ungasan, South Kuta, Bali</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-label">Menu Makanan</div>
+  <h2 class="section-title">Menu Seafood Jimbaran Kami</h2>
+
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="filterMenu('semua', this)">Semua</button>
+    <button class="tab-btn" onclick="filterMenu('Paket', this)">Paket</button>
+    <button class="tab-btn" onclick="filterMenu('Harga Satuan', this)">Harga Satuan</button>
+  </div>
+
+  <div class="menu-grid">
+
+    <!-- Paket -->
+    <div class="menu-card visible" data-cat="Paket">
+      <div class="menu-img-placeholder">🐟</div>
+      <div class="menu-card-body">
+        <div class="price-badge featured-badge">Rp 25.000</div>
+        <div class="menu-name">Paket Ikan Goreng</div>
+        <ul class="menu-items">
+          <li>Ikan Goreng 200gr</li>
+          <li>Nasi &amp; Sambal</li>
+          <li>Plecing Kangkung</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Paket -->
+    <div class="menu-card visible" data-cat="Paket">
+      <div class="menu-img-placeholder">🐟</div>
+      <div class="menu-card-body">
+        <div class="price-badge">Rp 30.000</div>
+        <div class="menu-name">Paket Udang Goreng</div>
+        <ul class="menu-items">
+          <li>Udang Goreng Mentega</li>
+          <li>Nasi &amp; Sambal</li>
+          <li>Plecing Kangkung</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Paket -->
+    <div class="menu-card visible" data-cat="Paket">
+      <div class="menu-img-placeholder">🐟</div>
+      <div class="menu-card-body">
+        <div class="price-badge">Rp 35.000</div>
+        <div class="menu-name">Paket Ikan &amp; Kerang</div>
+        <ul class="menu-items">
+          <li>Ikan 200gr</li>
+          <li>Kerang 5Pcs</li>
+          <li>Nasi &amp; Sambal</li>
+          <li>Plecing Kangkung</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Paket -->
+    <div class="menu-card visible" data-cat="Paket">
+      <div class="menu-img-placeholder">🐟</div>
+      <div class="menu-card-body">
+        <div class="price-badge">Rp 40.000</div>
+        <div class="menu-name">Paket Ikan &amp; Kuah</div>
+        <ul class="menu-items">
+          <li>Ikan 200gr</li>
+          <li>Udang 3pcs</li>
+          <li>Nasi &amp; Sambal</li>
+          <li>Plecing Kangkung</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Paket -->
+    <div class="menu-card visible" data-cat="Paket">
+      <div class="menu-img-placeholder">🐟</div>
+      <div class="menu-card-body">
+        <div class="price-badge">Rp 45.000</div>
+        <div class="menu-name">Paket Lengkap A</div>
+        <ul class="menu-items">
+        <li>Ikan 200gr</li>
+        <li>Kerang 5pcs</li>
+        <li>Nasi &amp; Sambal</li>
+        <li>Kuah Ikan</li>
+        <li>Plecing Kangkung</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Paket -->
+    <div class="menu-card visible" data-cat="Paket">
+      <div class="menu-img-placeholder">🐟</div>
+      <div class="menu-card-body">
+        <div class="price-badge">Rp 50.000</div>
+        <div class="menu-name">Paket Ikan &amp; Udang A</div>
+        <ul class="menu-items">
+        <li>Ikan 200gr</li>
+        <li>Udang 3pcs</li>
+        <li>Nasi &amp; Sambal</li>
+        <li>Kuah Ikan</li>
+        <li>Plecing Kangkung</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Paket -->
+    <div class="menu-card visible" data-cat="Paket">
+      <div class="menu-img-placeholder">🐟</div>
+      <div class="menu-card-body">
+        <div class="price-badge">Rp 50.000</div>
+        <div class="menu-name">Paket Ikan &amp; Udang &amp; Kerang</div>
+        <ul class="menu-items">
+        <li>Ikan 200gr</li>
+        <li>Udang 3pcs</li>
+        <li>Kerang 5pcs</li>
+        <li>Nasi &amp; Sambal</li>
+        <li>Plecing Kangkung</li>
+        </ul>
+      </div>
+    </div>
+
+  <!-- Paket -->
+    <div class="menu-card visible" data-cat="Paket">
+      <div class="menu-img-placeholder">🐟</div>
+      <div class="menu-card-body">
+        <div class="price-badge">Rp 75.000</div>
+        <div class="menu-name">Paket Super Lengkap</div>
+        <ul class="menu-items">
+        <li>Ikan 200gr</li>
+        <li>Kerang 5pcs</li>
+        <li>Udang 3pcs</li>
+        <li>Sate Cumi 2pcs</li>
+        <li>Plecing Kangkung</li>
+        <li>Nasi &amp; Sambal</li>
+        <li>Kuah Ikan</li>
+        </ul>
+      </div>
+    </div>
+
+  <!-- Harga Satuan -->
+    <div class="menu-card visible" data-cat="Harga Satuan">
+      <div class="menu-img-placeholder">💰</div>
+      <div class="menu-card-body">
+        <div class="price-badge">Harga Satuan</div>
+        <div class="menu-name">Kategori Non Paket</div>
+        <ul class="menu-items">
+        <li>Ikan Bakar</li>
+        <li>Kerang Bakar = Rp. 20.000</li>
+        <li>Udang Bakar = Rp. 25.000 </li>
+        <li>Cumi Bakar = Rp. 30.000</li>
+        <li>Ayam Bakar = Rp. 17.000</li>
+        <li>Sup Ikan = Rp. 20.000</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-inner">
+    <div>
+      <div class="section-label">Kenapa Pan Juwet?</div>
+      <h2 class="section-title">Pengalaman Makan yang Berbeda</h2>
+      <div class="exp-list">
+        <div class="exp-item">
+          <div class="exp-num">01</div>
+          <div>
+            <div class="exp-item-title">Bahan Segar Setiap Hari</div>
+            <div class="exp-item-desc">Ikan dan seafood dipilih segar setiap hari langsung dari hasil laut kualitas terjamin di setiap sajian.</div>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-num">02</div>
+          <div>
+            <div class="exp-item-title">Bumbu Tradisional Otentik</div>
+            <div class="exp-item-desc">Resep bumbu turun-temurun khas Jimbaran, tanpa pengawet &amp; cita rasa yang tidak bisa Anda temukan di tempat lain.</div>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-num">03</div>
+          <div>
+            <div class="exp-item-title">Harga Sangat Terjangkau</div>
+            <div class="exp-item-desc">Beragam pilihan menu mulai dari Rp 20.000. Paket lengkap dengan ikan, udang, kerang &amp; cumi sekaligus!</div>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-num">04</div>
+          <div>
+            <div class="exp-item-title">Buka Sore Hingga Malam</div>
+            <div class="exp-item-desc">Melayani pukul 15.00 – 23.00 WITA. Sempurna untuk makan malam setelah seharian menjelajahi Bali.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ocean-deco">
+      <svg viewBox="0 0 260 340" width="240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20 290 Q70 260 130 278 Q190 296 240 268 L240 340 L20 340 Z" fill="#2C1800" opacity="0.95"/>
+        <path d="M20 260 Q75 230 138 250 Q195 268 240 242 L240 296 Q195 322 138 304 Q75 284 20 314 Z" fill="#3D2200" opacity="0.85"/>
+        <path d="M20 230 Q80 198 142 218 Q200 236 240 212 L240 260 Q200 284 142 266 Q80 246 20 278 Z" fill="#5C3200" opacity="0.7"/>
+        <path d="M20 200 Q85 168 145 188 Q205 206 240 182 L240 230 Q205 254 145 236 Q85 216 20 248 Z" fill="#8C5200" opacity="0.55"/>
+        <path d="M20 170 Q90 138 148 158 Q210 176 240 152 L240 200 Q210 224 148 206 Q90 186 20 218 Z" fill="#FAD032" opacity="0.25"/>
+        <g transform="translate(82,45)" opacity="0.9">
+          <path d="M50 0 C65 10 70 30 60 50 C50 70 30 75 20 65 C10 55 15 35 25 25 C35 15 45 20 50 0Z" fill="#3D2200" stroke="#FAD032" stroke-width="1.5"/>
+          <path d="M50 0 C55 15 45 30 35 28" stroke="#fc9230" stroke-width="2" stroke-linecap="round"/>
+          <path d="M50 0 C60 12 55 28 45 26" stroke="#fc9230" stroke-width="2" stroke-linecap="round"/>
+          <g stroke="#FAD032" stroke-width="1.2">
+            <line x1="22" y1="35" x2="5"  y2="42"/>
+            <line x1="20" y1="45" x2="3"  y2="50"/>
+            <line x1="22" y1="55" x2="5"  y2="62"/>
+            <line x1="55" y1="35" x2="72" y2="42"/>
+            <line x1="56" y1="45" x2="74" y2="50"/>
+            <line x1="54" y1="55" x2="72" y2="62"/>
+          </g>
+        </g>
+        <g transform="translate(148,80)" opacity="0.75">
+          <path d="M30 0 C50 0 60 20 55 38 C50 55 35 60 20 55 C5 50 0 35 5 18 C10 5 15 0 30 0Z" fill="#2C1800" stroke="#FAD032" stroke-width="1.5"/>
+          <path d="M30 0 Q38 28 30 58" stroke="#fc9230" stroke-width="1.5"/>
+          <path d="M30 2 Q48 25 54 40" stroke="#fc9230" stroke-width="1.2"/>
+          <path d="M30 2 Q12 25 5 40" stroke="#fc9230" stroke-width="1.2"/>
+        </g>
+        <circle cx="50"  cy="175" r="5"   stroke="#FAD032" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="68"  cy="152" r="3.5" stroke="#FAD032" stroke-width="1.5" opacity="0.4"/>
+        <circle cx="38"  cy="138" r="4"   stroke="#FAD032" stroke-width="1.5" opacity="0.35"/>
+        <circle cx="195" cy="155" r="4"   stroke="#FAD032" stroke-width="1.5" opacity="0.45"/>
+        <circle cx="210" cy="136" r="3"   stroke="#FAD032" stroke-width="1.5" opacity="0.35"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="section-label">Kunjungi Kami</div>
+  <h2 class="section-title">Temukan Warung Kami</h2>
+  <p class="location-jargon">"Tempat Sederhana, Rasa Luar Biasa"</p>
+  <p class="section-sub">Berlokasi dekat kawasan Uluwatu, mudah dijangkau dari berbagai penjuru Bali selatan.</p>
+
+  <div class="location-card">
+    <div class="loc-row">
+      <div class="loc-icon">📍</div>
+      <div>
+        <div class="loc-label">Alamat</div>
+        <div class="loc-value">Near, Uluwatu St No.108-93, Ungasan,<br>South Kuta, Badung Regency, Bali 80361, Indonesia</div>
+      </div>
+    </div>
+    <div class="loc-row">
+      <div class="loc-icon">⏰</div>
+      <div>
+        <div class="loc-label">Jam Operasional</div>
+        <div class="loc-value"><span class="open-badge">Buka</span> Setiap hari · 15.00 – 23.00 WITA</div>
+      </div>
+    </div>
+    <div class="loc-row">
+      <div class="loc-icon">📞</div>
+      <div>
+        <div class="loc-label">Telepon / WhatsApp</div>
+        <div class="loc-value"><a href="tel:+6282135703478">+62 821-3570-3478</a></div>
+      </div>
+    </div>
+    <div class="loc-row">
+      <div class="loc-icon">💰</div>
+      <div>
+        <div class="loc-label">Harga</div>
+        <div class="loc-value">Mulai dari Rp 20.000</div>
+      </div>
+    </div>
+    <div class="loc-row">
+      <div class="loc-icon">🗺️</div>
+      <div>
+        <div class="loc-label">Plus Code</div>
+        <div class="loc-value">55J3+WM Ungasan, Kabupaten Badung, Bali</div>
+      </div>
+    </div>
+    <div style="margin-top: 1.8rem; text-align:center;">
+      <a href="https://maps.google.com/?q=Warung+Ikan+Bakar+Jimbaran+Pan+Juwet+Ungasan+Bali" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+        🗺️ &nbsp; Buka di Google Maps
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL MEDIA -->
+<section id="social">
+  <div class="section-label">Ikuti Kami</div>
+  <h2 class="section-title">Temukan Kami di Sosial Media</h2>
+  <p class="section-sub">Update menu, promo, dan suasana warung setiap hari.</p>
+  <div class="social-cards">
+
+    <a href="https://www.instagram.com/ikanbakar_panjuwet" target="_blank" rel="noopener noreferrer" class="social-card instagram">
+      <div class="social-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#f09433"/>
+              <stop offset="25%" style="stop-color:#e6683c"/>
+              <stop offset="50%" style="stop-color:#dc2743"/>
+              <stop offset="75%" style="stop-color:#cc2366"/>
+              <stop offset="100%" style="stop-color:#bc1888"/>
+            </linearGradient>
+          </defs>
+          <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#ig-grad)" stroke-width="1.8" fill="none"/>
+          <circle cx="12" cy="12" r="4" stroke="url(#ig-grad)" stroke-width="1.8" fill="none"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="url(#ig-grad)"/>
+        </svg>
+      </div>
+      <div class="social-platform">Instagram</div>
+      <div class="social-handle">@ikanbakar_panjuwet</div>
+      <div class="social-follow">Tap untuk follow ✨</div>
+    </a>
+
+    <a href="https://www.tiktok.com/@ikan.bakar.pan.ju" target="_blank" rel="noopener noreferrer" class="social-card tiktok">
+      <div class="social-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.52V6.78a4.85 4.85 0 0 1-1.02-.09z" fill="#FAD032"/>
+        </svg>
+      </div>
+      <div class="social-platform">TikTok</div>
+      <div class="social-handle">@ikan.bakar.pan.ju</div>
+      <div class="social-follow">Tap untuk follow 🎵</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Warung Ikan Bakar Jimbaran Pan Juwet</div>
+  <div class="footer-socials">
+    <a href="https://www.instagram.com/ikanbakar_panjuwet" target="_blank" rel="noopener noreferrer">IG @ikanbakar_panjuwet</a>
+    <span style="color:rgba(245,230,200,0.15)">·</span>
+    <a href="https://www.tiktok.com/@ikan.bakar.pan.ju" target="_blank" rel="noopener noreferrer">TT @ikan.bakar.pan.ju</a>
+  </div>
+  <div class="footer-copy">© 2026 · Ungasan, Bali · 🔥 Tempat Sederhana, Rasa Luar Biasa</div>
+</footer>
+
+<script>
+  function filterMenu(cat, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.menu-card').forEach(card => {
+      if (cat === 'semua' || card.dataset.cat === cat) {
+        card.classList.add('visible');
+      } else {
+        card.classList.remove('visible');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
